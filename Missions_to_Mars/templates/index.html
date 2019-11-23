@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mars Data</title>
+  <!-- Bring in our bootstrap stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Dictonary Data to Reference:
+
+    mars_dictionary['latest_news_title']=latest_title
+    mars_dictionary['latest_news_paragraph']=latest_paragraph
+    mars_dictionary['featured_image_url']=featured_img_url
+    mars_dictionary['mars_weather']=mars_weather
+    mars_dictionary['mars_facts']=mars_facts_df
+    mars_dictionary['hemispheres']=hemisphere_list
+-->
+
+
+</head>
+
+<body>
+
+
+  <div class="container-fluid">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape Mars Data</a></p>
+    </div>
+    <h3>Latest Mars News</h3>
+    <p><b>{{ mars.latest_news_title  }}</b></p>
+    <p> {{ mars.latest_news_paragraph }}</p>
+  </div>
+
+    <!-- Display featured NASA images -->
+    <div class='container-fluid'>
+        <div style='text-align:center'><h3>Featured NASA Image</h3></div>
+
+      <div class='row'>
+        <div class="col-8">
+            
+            <img src="{{ mars.featured_image_url }}" alt="Featured NASA Image" class="img-fluid">
+
+        </div>
+
+    <!-- Display mars weather data and table on the side of featured image -->
+      
+        <div class='col-4'>
+            <div class='card border-info mb-3' style="max-width: 20rem;">
+                <div class='card-body'>
+                  <h4 class='card-title'>Mars Weather</h4>
+                  <p class='card-text'>{{ mars.mars_weather }}</p>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+              {{ mars.mars_facts|safe}}
+            </table>
+        </div>
+      </div>
+    </div>
+    <br>
+  
+
+    <div class='container-fluid'>
+
+      <div style='text-align:center'><h3>Mars Hemispheres</h3></div>
+      <hr class="my-4">
+
+      <!-- loop through Mongo DB hemisphere list to display impages and titles -->
+      <!-- within hemisphere I have "img_url" and "title" -->
+      <!-- images may time out due to accessing a web.archive -->
+          <div class='container-fluid'>
+              <div class='row'>
+
+                {% for item in mars.hemispheres %}
+                  <div class="card border-primary mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <h4 class="card-title">{{ item.title }}</h4>
+                        <p class="card-text">
+                          <img src="{{ item.img_url }}" alt="Hemisphere Image" class="img-fluid">
+                        </p>
+                      </div>
+                  </div>
+                  {% endfor %}
+
+              </div>
+          </div>
+    </div>
+
+    
+
+
+</body>
+
+</html>
