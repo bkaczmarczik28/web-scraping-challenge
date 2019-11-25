@@ -83,12 +83,14 @@
               <div class='row'>
 
                 {% for item in mars.hemispheres %}
-                  <div class="card border-primary mb-3" style="max-width: 20rem;">
-                      <div class="card-body">
-                        <h4 class="card-title">{{ item.title }}</h4>
-                        <p class="card-text">
-                          <img src="{{ item.img_url }}" alt="Hemisphere Image" class="img-fluid">
-                        </p>
+                  <div class="card bg-light mb-3" style="max-width: 20rem;">
+                    <div style='text-align:center'>
+                        <div class="card-body">
+                          <h4 class="card-title">{{ item.title }}</h4>
+                          <p class="card-text">
+                            <img src="{{ item.img_url }}" alt="Hemisphere Image" class="img-fluid">
+                          </p>
+                        </div>
                       </div>
                   </div>
                   {% endfor %}

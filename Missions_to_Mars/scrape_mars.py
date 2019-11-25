@@ -155,10 +155,10 @@ def scrape_mars():
         hemisphere={}
         
         #click on the link to reach the full-resolution picture
-        browser.find_by_css("a.product-item h3")[i].click()
+        browser.find_by_css('a[class="itemLink product-item"] h3')[i].click()
 
         #allow page to load in chrome
-        time.sleep(1)
+        time.sleep(2)
         
         #each full-resolution picture is tied to a "Sample" text. Use to capture link
         item=browser.find_link_by_text('Sample').first
